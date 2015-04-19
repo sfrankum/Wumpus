@@ -1,0 +1,39 @@
+class Highscore1
+    {
+        public void HighScore1(int score, string name)
+        {
+            //initialize variables
+            string filename = "Highscore.txt";
+            List<string> scoreList;
+            
+            //check to see if file exists and then reads file to list
+            if (File.Exists(filename)){
+                scoreList = File.ReadAllLines(filename).ToList();
+            }
+            else
+            {
+                scoreList = new List<string>();
+            }
+                
+            scoreList.Add(name + " " + score.ToString());
+            //creates sorted score list 
+            var sortedScoreList = scoreList.OrderByDescending(ss => int.Parse(ss.Substring(ss.LastIndexOf(" ") + 1)));
+            getHighScores(sortedScoreList.ToArray());
+            //writes it back to file
+            File.WriteAllLines(filename, sortedScoreList.ToArray());
+        }
+
+        //most likely uneccessary
+        public Array getHighScores(Array sorted)
+        {
+            return sorted;
+        }
+
+    }
+    /*//creates TopScores obj
+    class HighScore
+    {
+        public int Score { get; set; }
+        public string Initials { get; set; }
+
+    }*/
